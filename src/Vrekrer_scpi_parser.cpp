@@ -108,7 +108,7 @@ SCPI_Parameters::SCPI_Parameters(char* message) {
 }
 
 //Do nothing function
-void DefaultErrorHandler(SCPI_C c, SCPI_P p, Stream& interface) {}
+void DefaultErrorHandler(SCPI_C c, SCPI_P p, arduino::Stream& interface) {}
 
 
 // ## SCPI_Registered_Commands member functions. ##
@@ -335,7 +335,7 @@ void SCPI_Parser::SetErrorHandler(SCPI_caller_t caller){
  to the executed procedure.  
  @see GetMessage
 */
-void SCPI_Parser::Execute(char* message, Stream &interface) {
+void SCPI_Parser::Execute(char* message, arduino::Stream &interface) {
   while (message != NULL) {
     //Save multicomands for later
     char* multicomands = strpbrk(message, ";");
@@ -369,7 +369,7 @@ void SCPI_Parser::Execute(char* message, Stream &interface) {
  @see GetMessage
  @see Execute
 */
-void SCPI_Parser::ProcessInput(Stream& interface, const char* term_chars) {
+void SCPI_Parser::ProcessInput(arduino::Stream& interface, const char* term_chars) {
   char* message = this->GetMessage(interface, term_chars);
   if (message != NULL) {
     this->Execute(message, interface);
@@ -389,7 +389,7 @@ void SCPI_Parser::ProcessInput(Stream& interface, const char* term_chars) {
   A timeout occurs (10 ms without new chars)  
   The message buffer overflows
 */
-char* SCPI_Parser::GetMessage(Stream& interface, const char* term_chars) {
+char* SCPI_Parser::GetMessage(arduino::Stream& interface, const char* term_chars) {
   while (interface.available()) {
     //Read the new char
     msg_buffer_[message_length_] = interface.read();

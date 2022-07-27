@@ -91,7 +91,7 @@ typedef SCPI_Commands SCPI_C;
 typedef SCPI_Parameters SCPI_P;
 
 ///Void template used with SCPI_Parser::RegisterCommand.
-typedef void (*SCPI_caller_t)(SCPI_Commands, SCPI_Parameters, Stream&);
+typedef void (*SCPI_caller_t)(SCPI_Commands, SCPI_Parameters, arduino::Stream&);
 
 /// Integer size used for hashes.
 typedef SCPI_HASH_TYPE scpi_hash_t;
@@ -150,11 +150,11 @@ class SCPI_Parser {
   ///Variable that holds the last error code.
   ErrorCode last_error = ErrorCode::NoError;
   //Process a message and execute it a valid command is found
-  void Execute(char* message, Stream& interface);
+  void Execute(char* message, arduino::Stream& interface);
   //Gets a message from a Stream interface and execute it
-  void ProcessInput(Stream &interface, const char* term_chars);
+  void ProcessInput(arduino::Stream &interface, const char* term_chars);
   //Gets a message from a Stream interface
-  char* GetMessage(Stream& interface, const char* term_chars);
+  char* GetMessage(arduino::Stream& interface, const char* term_chars);
   //Prints registered tokens and command hashes to the serial interface
   void PrintDebugInfo();
   ///Magic number used for hashing the commands
