@@ -431,25 +431,28 @@ char* SCPI_Parser::GetMessage(arduino::Stream& interface, const char* term_chars
   return NULL;
 }
 
-///Prints registered tokens and command hashes to the serial interface
-void SCPI_Parser::PrintDebugInfo() {
-  Serial.println(F("*** DEBUG INFO ***"));
-  Serial.println();
-  Serial.print(F("TOKENS :"));
-  Serial.println(tokens_size_);
+/*!
+ Prints registered tokens and command hashes to a Stream interface
+ @param interface  A Stream interface like Serial or Ethernet.
+ */
+void SCPI_Parser::PrintDebugInfo(arduino::Stream& interface) {
+  interface.println(F("*** DEBUG INFO ***"));
+  interface.println();
+  interface.print(F("TOKENS :"));
+  interface.println(tokens_size_);
   for (uint8_t i = 0; i < tokens_size_; i++) {
-    Serial.print(F("  "));
-    Serial.println(String(tokens_[i]));
-    Serial.flush();
+    interface.print(F("  "));
+    interface.println(String(tokens_[i]));
+    interface.flush();
   }
-  Serial.println();
-  Serial.println(F("VALID CODES :"));
+  interface.println();
+  interface.println(F("VALID CODES :"));
   for (uint8_t i = 0; i < codes_size_; i++) {
-    Serial.print(F("  "));
-    Serial.println(valid_codes_[i]);
-    Serial.flush();
+    interface.print(F("  "));
+    interface.println(valid_codes_[i]);
+    interface.flush();
   }
-  Serial.println();
-  Serial.println(F("*******************"));
-  Serial.println();
+  interface.println();
+  interface.println(F("*******************"));
+  interface.println();
 }
