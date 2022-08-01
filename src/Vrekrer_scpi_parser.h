@@ -156,7 +156,7 @@ class SCPI_Parser {
   //Gets a message from a Stream interface
   char* GetMessage(arduino::Stream& interface, const char* term_chars);
   //Prints registered tokens and command hashes to the serial interface
-  void PrintDebugInfo();
+  void PrintDebugInfo(arduino::Stream& interface);
   ///Magic number used for hashing the commands
   scpi_hash_t hash_magic_number = 37;
   
