@@ -268,7 +268,7 @@ void SCPI_Parser::SetCommandTreeBase(const char* tree_base) {
  SetCommandTreeBase version with Flash strings (F() macro) support.
 
  Example:  
-  ``my_instrument.SetCommandTreeBase(F("SYSTem:LED"));``
+  ``my_instrument.SetCommandTreeBase("SYSTem:LED"));``
 */
 void SCPI_Parser::SetCommandTreeBase(const __FlashStringHelper* tree_base) {
   strcpy_P(msg_buffer_, (const char *) tree_base);
@@ -306,7 +306,7 @@ void SCPI_Parser::RegisterCommand(const char* command, SCPI_caller_t caller) {
  RegisterCommand version with Flash strings (F() macro) support.
 
  Example:  
-  ``my_instrument.RegisterCommand(F("*IDN?"), &Identify);``
+  ``my_instrument.RegisterCommand("*IDN?"), &Identify);``
 */
 void SCPI_Parser::RegisterCommand(const __FlashStringHelper* command, SCPI_caller_t caller) {
   strcpy_P(msg_buffer_, (const char *) command);
@@ -436,23 +436,22 @@ char* SCPI_Parser::GetMessage(arduino::Stream& interface, const char* term_chars
  @param interface  A Stream interface like Serial or Ethernet.
  */
 void SCPI_Parser::PrintDebugInfo(arduino::Stream& interface) {
-  interface.println(F("*** DEBUG INFO ***"));
-  interface.println();
-  interface.print(F("TOKENS :"));
+  interface.println("*** DEBUG INFO ***");
+  interface.print("TOKENS: ");
   interface.println(tokens_size_);
   for (uint8_t i = 0; i < tokens_size_; i++) {
-    interface.print(F("  "));
+    interface.print("  ");
     interface.println(String(tokens_[i]));
     interface.flush();
   }
   interface.println();
-  interface.println(F("VALID CODES :"));
+  interface.println("VALID CODES :");
   for (uint8_t i = 0; i < codes_size_; i++) {
-    interface.print(F("  "));
+    interface.print("  ");
     interface.println(valid_codes_[i]);
     interface.flush();
   }
   interface.println();
-  interface.println(F("*******************"));
+  interface.println("*******************");
   interface.println();
 }
